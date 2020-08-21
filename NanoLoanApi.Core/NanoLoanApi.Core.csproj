@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.Bcl.Build" Version="1.0.21" />
+    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.166" />
+    <PackageReference Include="Microsoft.Bcl" Version="1.1.10" />
+    <PackageReference Include="BouncyCastle" Version="1.8.6.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
+    <PackageReference Include="NLog" Version="4.7.3" />
+    <PackageReference Include="NLog.Config" Version="4.7.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\" />
+    <Folder Include="CustomObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>lib\RestSharp.Portable.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
