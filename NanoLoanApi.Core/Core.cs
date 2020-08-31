@@ -56,57 +56,40 @@ namespace NanoLoanApi.Core
         #region Quickteller
         public static Dictionary<string, string> QueryTransaction(string requestRef)
         {
-
-            //var interswitch = new Interswitch.Interswitch();
-            var env = "SANDBOX";
-            var clientID = "IKIA9614B82064D632E9B6418DF358A6A4AEA84D7218";
-            var clientSecretKey = "XCTiBtLy1G9chAnyg0z3BcaFK4cVpwDg/GTw2EmjTZ8=";
-            var TerminalId = "3DMO0001";
-            var interswitch = new Core(clientID, clientSecretKey, env);
+            var interswitch = new Core(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.SANDBOX_ENV);
             String resourceUrl = "/api/v2/quickteller/transactions?requestreference=" + requestRef;//api/v2/quickteller/transactions?requestreference=14561489752590
             string method = "GET";
             Dictionary<string, string> aditionalHeaders = new Dictionary<string, string>();
-            aditionalHeaders.Add("TerminalId", TerminalId);
+            aditionalHeaders.Add("TerminalId", Constants.TerminalID);
             var result = interswitch.SendWithAccessTokenQuickteller(resourceUrl, method, null, aditionalHeaders, null);
             return result; 
-            //Console.WriteLine("here is the result CODE  :    " + result["CODE"]);
-            //Console.WriteLine("here is the result RESPONSE :    " + result["RESPONSE"]);
 
         }
         public static Dictionary<string, string> GetBillerPaymentItems()
         {
-
-            //var interswitch = new Interswitch.Interswitch();
-            var env = "SANDBOX";
-            var clientID = "IKIA9614B82064D632E9B6418DF358A6A4AEA84D7218";
-            var clientSecretKey = "XCTiBtLy1G9chAnyg0z3BcaFK4cVpwDg/GTw2EmjTZ8=";
-            var TerminalId = "3DMO0001";
-            var interswitch = new Core(clientID, clientSecretKey, env);
+            var interswitch = new Core(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.SANDBOX_ENV);
             String resourceUrl = "/api/v2/quickteller/billers/14267/paymentitems";
 
             string method = "GET";
             Dictionary<string, string> aditionalHeaders = new Dictionary<string, string>();
-            aditionalHeaders.Add("TerminalId", TerminalId);
+            aditionalHeaders.Add("TerminalId", Constants.TerminalID);
             var result = interswitch.SendWithAccessTokenQuickteller(resourceUrl, method, null, aditionalHeaders, null);
+            Console.WriteLine("  >>>>result   :    " + result);
             return result;
         }
 
         public static Dictionary<string, string> SendBillPaymentAdvice(BillPaymentAdviceRequest request)
         {
 
-            //var interswitch = new Interswitch.Interswitch();
-            var env = "SANDBOX";
-            var clientID = "IKIA9614B82064D632E9B6418DF358A6A4AEA84D7218";
-            var clientSecretKey = "XCTiBtLy1G9chAnyg0z3BcaFK4cVpwDg/GTw2EmjTZ8=";
-            var TerminalId = "3DMO0001";
-            var interswitch = new Core(clientID, clientSecretKey, env);
+           
+            var interswitch = new Core(Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.SANDBOX_ENV);
 
 
             String resourceUrl = "/api/v2/quickteller/payments/advices";
 
 
             JObject json = new JObject();
-            json.Add("TerminalId", TerminalId);
+            json.Add("TerminalId", Constants.TerminalID);
             // json.Add("paymentCode", "051426701");
             //json.Add("paymentCode", "10401");
             //json.Add("customerId", "0000000001");
@@ -122,7 +105,7 @@ namespace NanoLoanApi.Core
 
             string method = "POST";
             Dictionary<string, string> aditionalHeaders = new Dictionary<string, string>();
-            aditionalHeaders.Add("TerminalId", TerminalId);
+            aditionalHeaders.Add("TerminalId", Constants.TerminalID);
             var result = interswitch.SendWithAccessTokenQuickteller(resourceUrl, method, json, aditionalHeaders, null);
             //Console.WriteLine("here is the result CODE  :    " + result["CODE"]);
             //Console.WriteLine("here is the result RESPONSE :    " + result["RESPONSE"]);
@@ -417,130 +400,6 @@ namespace NanoLoanApi.Core
 
         }
 
-        //public Dictionary<string, string> SendWithAccessTokenPost(String uri, String httpMethod, JObject json, Dictionary<string, string> headers = null, String signedParameters = null)
-        //{
-        //    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-
-        //        string url = getUrl(environment);
-        //        url = String.Concat(url, uri);
-
-        //        Console.WriteLine("===============================Url from  SendwithAccessToken " + url);
-        //        Config authConfig = new Config(httpMethod, url, Constants.CLIENT_ID, Constants.CLIENT_SECRET);
-
-        //       // HttpMethod httpMethodObj = (httpMethod == null || httpMethod.Equals("")) ? HttpMethod.Get : new HttpMethod(httpMethod);
-        //        WebClient web = new WebClient();
-
-        //        web.Headers.Add(HttpRequestHeader.Authorization, authConfig.GetInterswitchAuth(Constants.CLIENT_ID));
-        //        web.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-        //        web.Headers.Add("Signature", authConfig.Signature);
-        //        web.Headers.Add("SignatureMethod", "SHA1");
-        //        web.Headers.Add("Timestamp", authConfig.TimeStamp);
-        //        web.Headers.Add("Nonce", authConfig.Nonce);
-
-        //        var postData = JsonConvert.SerializeObject(json);
-        //       var response = web.UploadString (url, postData);
-
-        //    return dictionary;
-        //}
-
-
-
-        /*
-         * unused code
-
-        //Sending using Post request
-            public Dictionary<string, string> SendILSPost_old(string jsontext,string resourceUrl, string authorization)
-        {
-            Dictionary<string, string> responseMap = new Dictionary<string, string>();
-                        
-            //This should be used when not on interswitch network-----For HttpURLConnection
-            //HttpMethod httpMethodObj = (httpMethod == null || httpMethod.Equals("")) ? HttpMethod.Get : new HttpMethod(httpMethod);
-            // IRestResponse response = null;
-
-            // RestClient con = new RestClient(resourceUrl);
-            // RestRequest request = new RestRequest(resourceUrl, HttpMethod.Post);
-            // request.AddHeader("Authorization", authorization);
-            // request.AddHeader("Content-Type", "application/json");
-            // request.AddJsonBody(jsontext);
-            // response = con.Execute(request).Result;
-            //  int responseCode = (int)response.StatusCode;
-            //Console.WriteLine(">>>>>>ResponseCode " + responseCode);
-
-            //  responseMap.Add(HTTP_CODE, responseCode.ToString());
-            //responseMap.Add(HTTP_RESPONSE, System.Text.Encoding.UTF8.GetString(response.RawBytes));
-
-            // return responseMap;
-
-            // create a request
-            WebRequest request = WebRequest.Create(resourceUrl);
-            //  request.KeepAlive = false;
-           // request.ProtocolVersion = HttpVersion.Version10;
-            request.Method = "POST";
-
-            // turn our request string into a byte stream
-           byte[] postBytes = Encoding.UTF8.GetBytes(jsontext);
-            
-          //  return bResult;
-            Console.WriteLine(">>>>>>>>>>>>>>>>>" + postBytes.Length);
-
-            // this is important - make sure you specify type this way
-           // request.ContentType = "application/json; charset=UTF-8";
-           // request.Accept = "application/json";
-            request.ContentLength = postBytes.Length;
-           // request.CookieContainer = Cookies;
-            //request.UserAgent = currentUserAgent;
-            request.Headers.Add("Authorization", authorization);
-            request.Headers.Add("Content-Type", "application/json");
-
-            Stream requestStream = request.GetRequestStream();
-
-            // now send it
-            requestStream.Write(postBytes, 0, postBytes.Length);
-            requestStream.Close();
-
-            // grab te response and print it out to the console along with the status code
-            WebResponse response = request.GetResponse();
-            // Display the status.  
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-
-            string responseFromServer;
-
-            using (requestStream = response.GetResponseStream()){
-                    // Open the stream using a StreamReader for easy access.  
-                    StreamReader reader = new StreamReader(requestStream);
-                    // Read the content.  
-                     responseFromServer = reader.ReadToEnd();
-                    // Display the content.  
-                    Console.WriteLine(responseFromServer);
-
-              }
-
-            responseMap.Add(HTTP_CODE, responseFromServer.ToString());
-            responseMap.Add(HTTP_RESPONSE, System.Text.Encoding.UTF8.GetString(postBytes));
-
-            return responseMap;
-
-
-       }
-
-            */
-
-
-        //public Dictionary<string, string> Send(String uri, String httpMethod, string accesstoken, object data = null, Dictionary<string, string> headers = null, String signedParameters = null)
-        //{
-        //    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-        //    try
-        //    {
-        //        return SendWithAccessToken(uri, httpMethod, accesstoken, data, headers, signedParameters);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(">>>>>>>>>>>>>>>>>>>>" + ex.StackTrace.ToString());
-        //    }
-        //    return dictionary;
-        //}
-
 
         public Dictionary<string, string> SendWithAccessToken(String uri, String httpMethod, object data = null, Dictionary<string, string> headers = null, String signedParameters = null)
         {
@@ -651,9 +510,9 @@ namespace NanoLoanApi.Core
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
+                
                 response = client.Execute(paymentRequests).Result;
-
-
+               
 
                 HttpStatusCode httpStatusCode = response.StatusCode;
                 int numericStatusCode = (int)httpStatusCode;

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace NanoLoanApi
@@ -29,18 +30,17 @@ namespace NanoLoanApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "My API",
                     Version = "v1",
-                     Description = "Nano Loan Middleware API",
-                      TermsOfService = "None",
-                       Contact = new Contact()
-                       {
-                           Name = "Olukayode Esho",
-                            Email = "olukayode.eaho@gmail.com",
-                            Url= ""
-                       }
+                     Description = "Nano Loan Middleware API"
+                       //Contact = new Contact()
+                       //{
+                       //    Name = "Olukayode Esho",
+                       //     Email = "olukayode.eaho@gmail.com",
+                       //     Url= ""
+                       //}
 
                 });
             });

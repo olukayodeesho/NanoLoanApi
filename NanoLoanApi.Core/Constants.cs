@@ -11,8 +11,8 @@ namespace NanoLoanApi.Core
         public static string SANDBOX_URL = "https://sandbox.interswitchng.com";
         public static string PRODUCTION_URL = "https://saturn.interswitchng.com";
         public static string DEVELOPMENT_URL = "https://qa.interswitchng.com";
-
-
+        // "SANDBOX"
+        public static string SANDBOX_ENV = "SANDBOX";
 
         public static string LENDING_SERVICE_URL = "https://sandbox.interswitchng.com/lending-service/api/v1/";
         public static string LENDING_SERVICE_URLV2 = "https://sandbox.interswitchng.com/lending-service/api/v2/";
@@ -39,7 +39,9 @@ namespace NanoLoanApi.Core
         public static String SIGNATURE_METHOD_HEADER = "SignatureMethod";
         public static String INTERSWITCH_AUTH = "InterswitchAuth";
         public static String CHANNEL_CODE = "QTUSSD";
-        
+        public static String TerminalID = "3DMO0001";
+
+
 
 
     }
