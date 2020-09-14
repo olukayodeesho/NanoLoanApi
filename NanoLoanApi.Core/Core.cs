@@ -163,7 +163,22 @@ namespace NanoLoanApi.Core
             return response;
 
         }
+        public static Dictionary<string, string> GetAllOffer(OfferRequest req)
+        {
+            Dictionary<string, string> response = new Dictionary<string, string>();
+            try
+            {
+                var interswitch = new Core();
+                string accessToken = interswitch.GetClientAccessToken(Constants.CLIENT_ID, Constants.CLIENT_SECRET).Result.access_token;
+                String resourceUrl = Constants.LENDING_SERVICE_URLV2 + "offers?customerId=" + req.customerId + "&channelCode=" + Constants.CHANNEL_CODE + "&amount=" + req.Amount;
 
+                string authorization = $"{Constants.BEARER_AUTHORIZATION_REALM} {accessToken}";
+                response = interswitch.SendILS(resourceUrl, authorization);
+            }
+            catch (Exception e) { logger.Debug(e); }
+            return response;
+
+        }
         public static Dictionary<string, string> acceptOffers( AcceptOfferRequest acceptOfferRequest)
         {
             var interswitch = new Core();

@@ -14,5 +14,6 @@ namespace NanoLoanApi.Core.CustomObjects
         public string customerEmail  { get; set; }
         [Required]
         public decimal amount { get; set; }
+        public string requestReference { get; set; }
     }
 }

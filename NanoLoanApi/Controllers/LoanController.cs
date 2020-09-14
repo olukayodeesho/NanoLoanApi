@@ -60,6 +60,20 @@ namespace NanoLoanApi.Controllers
         }
 
         [HttpPost]
+        public IActionResult GetAllAvailableOffers([FromBody] OfferRequest request)
+        {
+            logger.Info("get all offrs" + JsonConvert.SerializeObject(request));
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+            var result = Core.Core.GetAllOffer(request);
+            if (result["CODE"] == "200")
+                return Ok(result["RESPONSE"]);
+            else
+                return NotFound(result["RESPONSE"]);
+        }
+        [HttpPost]
         public IActionResult AcceptOffer([FromBody] AcceptOfferRequest request)
         {
             logger.Info("accept offer" + JsonConvert.SerializeObject(request));
